@@ -47,11 +47,13 @@ public class BlogViewController {
         if (id == null) { // id가 없으면 생성
             model.addAttribute("article", new ArticleViewResponse());
         }
-        else {
+        else { // id가 있으면 수정
             Article article = blogService.findById(id);
             model.addAttribute("article", new ArticleViewResponse(article));
         }
+
         return "newArticle";
     }
+
 }
 

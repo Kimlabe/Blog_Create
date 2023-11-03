@@ -14,7 +14,7 @@ if (deleteButton){
     });
 }
 
-// 수정 기능
+// 수정 기능 (현재 오류가 보임 수정 요구)
 // id가 modify-btn인 엘리먼트 조회
 const modifyButton = document.getElementById('modify-btn');
 
@@ -26,17 +26,40 @@ if (modifyButton) {
 
     fetch('/api/articles/${id}', {
     method: 'PUT',
-    headers : {
+    headers: {
         "Content-Type" : "application/json",
     },
-    body : JSON.stringify({
-        title : document.getElementById('title').value,
-        content : document.getElementById('content').value
-        })
+    body: JSON.stringify({
+        title: document.getElementById('title').value,
+        content: document.getElementById('content').value,
+    }),
     })
     .then(() => {
         alert('수정이 완료되었습니다.');
-        location.replace('/articles/${id}');
+        location.replace('/articles');
         });
     });
+}
+
+// 등록 기능
+// id가 create-btn인 엘리먼트
+const createButton = document.getElementById("create-btn");
+
+if (createButton) {
+    createButton.addEventListener("click", (event) => {
+    fetch("/api/articles",{
+      method: "POST",
+      headers: {
+          "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+          title: document.getElementById("title").value,
+          content: document.getElementById("content").value
+      })
+    })
+    .then(() => {
+       alert("등록이 완료되었습니다.");
+       location.replace("/articles");
+    });
+  });
 }
