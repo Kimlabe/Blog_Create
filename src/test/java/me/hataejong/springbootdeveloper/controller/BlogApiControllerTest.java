@@ -55,7 +55,7 @@ class BlogApiControllerTest {
     BlogRepository blogRepository;
 
     @BeforeEach // 테스트 실행 전 실행하는 메서드
-    public void mockMvcSetup(){
+    public void mockMvcSetUp(){
         this.mockMvc = MockMvcBuilders.webAppContextSetup(context)
                 .build();
         blogRepository.deleteAll();
@@ -64,7 +64,7 @@ class BlogApiControllerTest {
     // 블로그 글 생성 API 테스트 코드
     @DisplayName("addArticle: 블로그 글 추가에 성공한다.")
     @Test
-    public void addArtcle() throws Exception {
+    public void addArticle() throws Exception {
         // given
         final String url = "/api/articles";
         final String title = "title";
@@ -174,18 +174,18 @@ class BlogApiControllerTest {
                 .content(content)
                 .build());
 
-        final String newTitle = "title";
-        final String newContent = "content";
+        final String newTitle = "new title";
+        final String newContent = "new content";
 
         UpdateArticleRequest request = new UpdateArticleRequest(newTitle, newContent);
 
         // when
         ResultActions result = mockMvc.perform(put(url, savedArticle.getId())
                 .contentType(MediaType.APPLICATION_JSON_VALUE)
-                .contentType(objectMapper.writeValueAsString(request)));
+                .content(objectMapper.writeValueAsString(request)));
 
         // then
-        result.andExpect                                                                                                        (status().isOk());
+        result.andExpect(status().isOk());
 
         Article article = blogRepository.findById(savedArticle.getId()).get();
 

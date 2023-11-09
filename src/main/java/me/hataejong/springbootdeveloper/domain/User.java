@@ -1,6 +1,7 @@
 package me.hataejong.springbootdeveloper.domain;
 
 import jakarta.persistence.*;
+import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -12,7 +13,7 @@ import java.util.Collection;
 import java.util.List;
 
 @Table(name = "users")
-@NoArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
 @Entity
 public class User implements UserDetails { // UserDetails를 상속 받아 인증 객체로 사용
@@ -22,10 +23,10 @@ public class User implements UserDetails { // UserDetails를 상속 받아 인�
     @Column(name = "id", updatable = false)
     private Long id;
 
-    @Column(name = "email", updatable = false, unique = true)
+    @Column(name = "email", nullable = false, unique = true)
     private String email;
 
-    @Column(name = "password")
+    @Column(name = "password", nullable = false)
     private String password;
 
     @Builder
