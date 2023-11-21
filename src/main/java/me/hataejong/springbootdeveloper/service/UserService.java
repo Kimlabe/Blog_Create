@@ -12,12 +12,14 @@ import org.springframework.stereotype.Service;
 public class UserService {
 
     private final UserRepository userRepository;
-    private final BCryptPasswordEncoder bCryptPasswordEncoder;
+//    private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
     public Long save(AddUserRequest dto){
+        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder;
+
         return userRepository.save(User.builder()
                 .email(dto.getEmail())
-                .password(bCryptPasswordEncoder.encode(dto.getPassword()))
+                .password(encoder.encode(dto.getPassword()))
                 .build()).getId();
     }
 
@@ -25,5 +27,11 @@ public class UserService {
     public User findById(Long userId){
         return userRepository.findById(userId)
                 .orElseThrow(() -> new IllegalArgumentException("Unexpected user"));
+    }
+
+    public User findByEmail(String email){
+            // findByEmail() : 이메일을 입력 받아 users 테이블에서 유저를 찾고, 없으면 예외를 발생
+        return userRepository.findByEmail(email)
+                .orElseThrow(() -> new IllegalArgumentException("Unexpected user"))
     }
 }
