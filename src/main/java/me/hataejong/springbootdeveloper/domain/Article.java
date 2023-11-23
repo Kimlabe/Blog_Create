@@ -27,7 +27,8 @@ public class Article {
     private String content;
 
     @Builder // 빌더 패턴으로 객체 생성
-    public Article(String title, String content){
+    public Article(String author, String title, String content){
+        this.author = author;
         this.title = title;
         this.content = content;
     }
@@ -56,5 +57,8 @@ public class Article {
     @LastModifiedDate // 엔티티가 수정될때 수정 시간 저장
     @Column(name = "updated_at")
     private LocalDateTime updatedAt;
+
+    @Column(name = "author", nullable = false)
+    private String author;
 
 }
