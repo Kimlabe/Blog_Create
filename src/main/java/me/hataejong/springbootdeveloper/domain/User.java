@@ -26,7 +26,7 @@ public class User implements UserDetails { // UserDetails를 상속 받아 인�
     @Column(name = "email", nullable = false, unique = true)
     private String email;
 
-    @Column(name = "password", nullable = false)
+    @Column(name = "password")
     private String password;
 
     // 사용자 이름
@@ -40,8 +40,8 @@ public class User implements UserDetails { // UserDetails를 상속 받아 인�
         this.nickname = nickname;
     }
 
-    public User update(String nicknanme){
-        this.nickname = nicknanme;
+    public User update(String nickname){
+        this.nickname = nickname;
 
         return this;
     }
